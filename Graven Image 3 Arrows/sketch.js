@@ -19,6 +19,7 @@ let imageRevealed = false
 let leftDebuff
 let rightDebuff
 let leftDebuffFirst = false
+let configuration = 0
 
 
 function preload() {
@@ -61,6 +62,26 @@ function draw() {
         tint(0, 0, 100, map(millis() - imageRevealed, 0, 500, 0, 100, true))
     }
     image(arrowDiagram, width/2, height/2, width, height)
+
+
+    fill(0, 0, 100, 0)
+    blendMode(ADD)
+    if (imageRevealed) {
+        fill(0, 0, 100, map(millis() - imageRevealed, 0, 500, 0, 30, true))
+    }
+    switch (configuration) {
+        case 0: rect(130, 346, 115, 210, 20); break
+        case 1: rect(130, 130, 115, 215, 20); break
+        case 2: rect(243, 135, 214, 115, 20); break
+        case 3: rect(455, 135, 215, 113, 20); break
+        case 4: rect(555, 247, 115, 210, 20); break
+        case 5: rect(554, 458, 115, 213, 20); break
+        case 6: rect(343, 555, 212, 116, 20); break
+        case 7: rect(130, 555, 212, 115, 20); break
+    }
+
+
+    blendMode(BLEND)
 
     fill(0, 0, 0)
     noStroke()
@@ -116,17 +137,22 @@ function setupMechanic() {
     imageRevealed = false
 
     let arrowPermutation = random([
-        ["up", "up"],
-        ["up", "right"],
-        ["right", "right"],
-        ["right", "down"],
-        ["down", "down"],
-        ["down", "left"],
-        ["left", "left"],
-        ["left", "up"],
+        ["up", "up", 0],
+        ["up", "right", 1],
+        ["up", "right", 1],
+        ["right", "right", 2],
+        ["right", "down", 3],
+        ["right", "down", 3],
+        ["down", "down", 4],
+        ["down", "left", 5],
+        ["down", "left", 5],
+        ["left", "left", 6],
+        ["left", "up", 7],
+        ["left", "up", 7],
     ])
     leftDebuff = arrowPermutation[0]
     rightDebuff = arrowPermutation[1]
+    configuration = arrowPermutation[2]
     leftDebuffFirst = random([false, true])
 }
 
