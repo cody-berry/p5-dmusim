@@ -53,11 +53,29 @@ function setup() {
     setupMechanic()
     imageMode(CENTER)
     textAlign(CENTER, CENTER)
+
+    if (!localStorage.getItem("wins")) {
+        localStorage.setItem("wins", "0")
+    } if (!localStorage.getItem("wipes")) {
+        localStorage.setItem("wipes", "0")
+    } if (!localStorage.getItem("streak")) {
+        localStorage.setItem("streak", "0")
+    }
 }
 
 
 function draw() {
     background(0, 0, 0)
+
+    textSize(20)
+    drawButton(width/2 - 210 - 25, height/2 - 25, [120, 80, 50], [120, 80, 70], [120, 80, 75 + sin(frameCount/20)*3], [0, 0, 100], "", 12, 25, 12, 25, 5, 5, 5, 5, !imageRevealed ? "pressLeftButton" : "")
+    drawButton(width/2 - 210 - 25, height/2 - 210 - 25, [120, 80, 50], [120, 80, 70], [120, 80, 75 + sin(frameCount/20)*3], [0, 0, 100], "", 12, 25, 12, 25, 5, 5, 5, 5, !imageRevealed ? "pressTopleftButton" : "")
+    drawButton(width/2 - 25, height/2 - 210 - 25, [120, 80, 50], [120, 80, 70], [120, 80, 75 + sin(frameCount/20)*3], [0, 0, 100], "", 12, 25, 12, 25, 5, 5, 5, 5, !imageRevealed ? "pressTopButton" : "")
+    drawButton(width/2 + 210 - 25, height/2 - 210 - 25, [120, 80, 50], [120, 80, 70], [120, 80, 75 + sin(frameCount/20)*3], [0, 0, 100], "", 12, 25, 12, 25, 5, 5, 5, 5, !imageRevealed ? "pressToprightButton" : "")
+    drawButton(width/2 + 210 - 25, height/2 - 25, [120, 80, 50], [120, 80, 70], [120, 80, 75 + sin(frameCount/20)*3], [0, 0, 100], "", 12, 25, 12, 25, 5, 5, 5, 5, !imageRevealed ? "pressRightButton" : "")
+    drawButton(width/2 + 210 - 25, height/2 + 210 - 25, [120, 80, 50], [120, 80, 70], [120, 80, 75 + sin(frameCount/20)*3], [0, 0, 100], "", 12, 25, 12, 25, 5, 5, 5, 5, !imageRevealed ? "pressBottomrightButton" : "")
+    drawButton(width/2 - 25, height/2 + 210 - 25, [120, 80, 50], [120, 80, 70], [120, 80, 75 + sin(frameCount/20)*3], [0, 0, 100], "", 12, 25, 12, 25, 5, 5, 5, 5, !imageRevealed ? "pressBottomButton" : "")
+    drawButton(width/2 - 210 - 25, height/2 + 210 - 25, [120, 80, 50], [120, 80, 70], [120, 80, 75 + sin(frameCount/20)*3], [0, 0, 100], "", 12, 25, 12, 25, 5, 5, 5, 5, !imageRevealed ? "pressBottomleftButton" : "")
 
     // display the arrows diagram
     tint(0, 0, 100, 0)
@@ -154,20 +172,9 @@ function draw() {
 
 
     textSize(20)
-    drawButton(width/2-textWidth("Reset")/2-30, height/2-textAscent()/2-textDescent()/2-5-120, [120, 50, 25], [120, 50, 50], [120, 50, 60+sin(frameCount/20)*3], [0, 0, 100], "Reset", 5, 30, 5, 30, 5, 5, 5, 5, "setupMechanic")
-    drawButton(width/2-textWidth("Help me!")/2-15, height/2-textAscent()/2-textDescent()/2-5+100, [350, 50, 25], [350, 50, 50], [350, 50, 60+sin(frameCount/20)*3], [0, 0, 100], "Help me!", 5, 15, 5, 15, 5, 5, 5, 5, "showDiagram")
+    drawButton(width/2-textWidth("Reset")-70, height/2-textAscent()/2-textDescent()/2-5-120, [120, 50, 25], [120, 50, 50], [120, 50, 60+sin(frameCount/20)*3], [0, 0, 100], "Reset", 5, 30, 5, 30, 5, 5, 5, 5, "setupMechanic")
+    drawButton(width/2+10, height/2-textAscent()/2-textDescent()/2-5-120, [350, 50, 25], [350, 50, 50], [350, 50, 60+sin(frameCount/20)*3], [0, 0, 100], "Help me!", 5, 15, 5, 15, 5, 5, 5, 5, "showDiagram")
 
-
-    if (!imageRevealed) {
-        drawButton(width/2 - 210 - 25, height/2 - 25, [120, 80, 50], [120, 80, 70], [120, 80, 75 + sin(frameCount/20)*3], [0, 0, 100], "", 12, 25, 12, 25, 5, 5, 5, 5, "pressLeftButton")
-        drawButton(width/2 - 210 - 25, height/2 - 210 - 25, [120, 80, 50], [120, 80, 70], [120, 80, 75 + sin(frameCount/20)*3], [0, 0, 100], "", 12, 25, 12, 25, 5, 5, 5, 5, "pressTopleftButton")
-        drawButton(width/2 - 25, height/2 - 210 - 25, [120, 80, 50], [120, 80, 70], [120, 80, 75 + sin(frameCount/20)*3], [0, 0, 100], "", 12, 25, 12, 25, 5, 5, 5, 5, "pressTopButton")
-        drawButton(width/2 + 210 - 25, height/2 - 210 - 25, [120, 80, 50], [120, 80, 70], [120, 80, 75 + sin(frameCount/20)*3], [0, 0, 100], "", 12, 25, 12, 25, 5, 5, 5, 5, "pressToprightButton")
-        drawButton(width/2 + 210 - 25, height/2 - 25, [120, 80, 50], [120, 80, 70], [120, 80, 75 + sin(frameCount/20)*3], [0, 0, 100], "", 12, 25, 12, 25, 5, 5, 5, 5, "pressRightButton")
-        drawButton(width/2 + 210 - 25, height/2 + 210 - 25, [120, 80, 50], [120, 80, 70], [120, 80, 75 + sin(frameCount/20)*3], [0, 0, 100], "", 12, 25, 12, 25, 5, 5, 5, 5, "pressBottomrightButton")
-        drawButton(width/2 - 25, height/2 + 210 - 25, [120, 80, 50], [120, 80, 70], [120, 80, 75 + sin(frameCount/20)*3], [0, 0, 100], "", 12, 25, 12, 25, 5, 5, 5, 5, "pressBottomButton")
-        drawButton(width/2 - 210 - 25, height/2 + 210 - 25, [120, 80, 50], [120, 80, 70], [120, 80, 75 + sin(frameCount/20)*3], [0, 0, 100], "", 12, 25, 12, 25, 5, 5, 5, 5, "pressBottomleftButton")
-    }
 
 
     textSize(40)
@@ -187,8 +194,16 @@ function draw() {
         noStroke()
         textAlign(CENTER, CENTER)
         text("Click the button in the cardinal\nor intercardinal you should" +
-            " go to.", width / 2, height / 2 - 75)
+            " go to.", width/2, height/2-75)
     }
+
+    noStroke()
+    fill(0, 0, 100)
+    textSize(20)
+    text("Wins: " + localStorage.getItem("wins") +
+        "\nStreak: " + localStorage.getItem("streak") +
+        "\nWipes: " + localStorage.getItem("wipes")
+        , width/2, height/2+105)
 
     mousePressedLastFrame = mouseIsPressed
 
@@ -204,57 +219,57 @@ function draw() {
 function pressLeftButton() {
     imageRevealed = millis()
     pressedButton = 0
-    if (pressedButton === configuration) won = true
-    else failed = true
+    if (pressedButton === configuration) win()
+    else fail()
 }
 
 function pressTopleftButton() {
     imageRevealed = millis()
     pressedButton = 1
-    if (pressedButton === configuration) won = true
-    else failed = true
+    if (pressedButton === configuration) win()
+    else fail()
 }
 
 function pressTopButton() {
     imageRevealed = millis()
     pressedButton = 2
-    if (pressedButton === configuration) won = true
-    else failed = true
+    if (pressedButton === configuration) win()
+    else fail()
 }
 
 function pressToprightButton() {
     imageRevealed = millis()
     pressedButton = 3
-    if (pressedButton === configuration) won = true
-    else failed = true
+    if (pressedButton === configuration) win()
+    else fail()
 }
 
 function pressRightButton() {
     imageRevealed = millis()
     pressedButton = 4
-    if (pressedButton === configuration) won = true
-    else failed = true
+    if (pressedButton === configuration) win()
+    else fail()
 }
 
 function pressBottomrightButton() {
     imageRevealed = millis()
     pressedButton = 5
-    if (pressedButton === configuration) won = true
-    else failed = true
+    if (pressedButton === configuration) win()
+    else fail()
 }
 
 function pressBottomButton() {
     imageRevealed = millis()
     pressedButton = 6
-    if (pressedButton === configuration) won = true
-    else failed = true
+    if (pressedButton === configuration) win()
+    else fail()
 }
 
 function pressBottomleftButton() {
     imageRevealed = millis()
     pressedButton = 7
-    if (pressedButton === configuration) won = true
-    else failed = true
+    if (pressedButton === configuration) win()
+    else fail()
 }
 
 function setupMechanic() {
@@ -286,7 +301,19 @@ function setupMechanic() {
 function showDiagram() {
     if (!imageRevealed) imageRevealed = millis()
     pressedButton = 8
+    fail()
+}
+
+function win() {
+    won = true
+    localStorage.setItem("wins", str(int(localStorage.getItem("wins")) + 1))
+    localStorage.setItem("streak", str(int(localStorage.getItem("streak")) + 1))
+}
+
+function fail() {
     failed = true
+    localStorage.setItem("wipes", str(int(localStorage.getItem("wipes")) + 1))
+    localStorage.setItem("streak", "0")
 }
 
 
