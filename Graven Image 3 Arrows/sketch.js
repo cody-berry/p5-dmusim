@@ -20,6 +20,9 @@ let leftDebuff
 let rightDebuff
 let leftDebuffFirst = false
 let configuration = 0
+let pressedButton
+let won
+let failed
 
 
 function preload() {
@@ -64,21 +67,54 @@ function draw() {
     image(arrowDiagram, width/2, height/2, width, height)
 
 
-    fill(0, 0, 100, 0)
     blendMode(ADD)
-    if (imageRevealed) {
-        fill(0, 0, 100, map(millis() - imageRevealed, 0, 500, 0, 30, true))
+    if (pressedButton === configuration) {
+        fill(120, 100, 100, 0)
+        if (imageRevealed) {
+            fill(120, 100, 100, map(millis() - imageRevealed, 0, 500, 0, 30, true))
+        }
+        switch (configuration) {
+            case 0: rect(130, 346, 115, 210, 20); break
+            case 1: rect(130, 130, 115, 215, 20); break
+            case 2: rect(243, 135, 214, 115, 20); break
+            case 3: rect(455, 135, 215, 113, 20); break
+            case 4: rect(555, 247, 115, 210, 20); break
+            case 5: rect(554, 458, 115, 213, 20); break
+            case 6: rect(343, 555, 212, 116, 20); break
+            case 7: rect(130, 555, 212, 115, 20); break
+        }
     }
-    switch (configuration) {
-        case 0: rect(130, 346, 115, 210, 20); break
-        case 1: rect(130, 130, 115, 215, 20); break
-        case 2: rect(243, 135, 214, 115, 20); break
-        case 3: rect(455, 135, 215, 113, 20); break
-        case 4: rect(555, 247, 115, 210, 20); break
-        case 5: rect(554, 458, 115, 213, 20); break
-        case 6: rect(343, 555, 212, 116, 20); break
-        case 7: rect(130, 555, 212, 115, 20); break
+    else {
+        fill(0, 0, 100, 0)
+        if (imageRevealed) {
+            fill(0, 0, 100, map(millis() - imageRevealed, 0, 500, 0, 30, true))
+        }
+        switch (configuration) {
+            case 0: rect(130, 346, 115, 210, 20); break
+            case 1: rect(130, 130, 115, 215, 20); break
+            case 2: rect(243, 135, 214, 115, 20); break
+            case 3: rect(455, 135, 215, 113, 20); break
+            case 4: rect(555, 247, 115, 210, 20); break
+            case 5: rect(554, 458, 115, 213, 20); break
+            case 6: rect(343, 555, 212, 116, 20); break
+            case 7: rect(130, 555, 212, 115, 20); break
+        }
+        fill(330, 100, 100, 0)
+        if (imageRevealed) {
+            fill(330, 100, 100, map(millis() - imageRevealed, 0, 500, 0, 30, true))
+        }
+        switch (pressedButton) {
+            case 0: rect(130, 346, 115, 210, 20); break
+            case 1: rect(130, 130, 115, 215, 20); break
+            case 2: rect(243, 135, 214, 115, 20); break
+            case 3: rect(455, 135, 215, 113, 20); break
+            case 4: rect(555, 247, 115, 210, 20); break
+            case 5: rect(554, 458, 115, 213, 20); break
+            case 6: rect(343, 555, 212, 116, 20); break
+            case 7: rect(130, 555, 212, 115, 20); break
+        }
     }
+
 
 
     blendMode(BLEND)
@@ -118,8 +154,41 @@ function draw() {
 
 
     textSize(20)
-    drawButton(width/2-textWidth("Reset")/2-30, height/2-textAscent()/2-textDescent()/2-5-100, [120, 50, 25], [120, 50, 50], [120, 50, 60+sin(frameCount/20)*3], [0, 0, 100], "Reset", 5, 30, 5, 30, 5, 5, 5, 5, "setupMechanic")
-    drawButton(width/2-textWidth("Show diagram")/2-5, height/2-textAscent()/2-textDescent()/2-5+100, [160, 50, 25], [160, 50, 50], [160, 50, 60+sin(frameCount/20)*3], [0, 0, 100], "Show diagram", 5, 5, 5, 5, 5, 5, 5, 5, "showDiagram")
+    drawButton(width/2-textWidth("Reset")/2-30, height/2-textAscent()/2-textDescent()/2-5-120, [120, 50, 25], [120, 50, 50], [120, 50, 60+sin(frameCount/20)*3], [0, 0, 100], "Reset", 5, 30, 5, 30, 5, 5, 5, 5, "setupMechanic")
+    drawButton(width/2-textWidth("Help me!")/2-15, height/2-textAscent()/2-textDescent()/2-5+100, [350, 50, 25], [350, 50, 50], [350, 50, 60+sin(frameCount/20)*3], [0, 0, 100], "Help me!", 5, 15, 5, 15, 5, 5, 5, 5, "showDiagram")
+
+
+    if (!imageRevealed) {
+        drawButton(width/2 - 210 - 25, height/2 - 25, [120, 80, 50], [120, 80, 70], [120, 80, 75 + sin(frameCount/20)*3], [0, 0, 100], "", 12, 25, 12, 25, 5, 5, 5, 5, "pressLeftButton")
+        drawButton(width/2 - 210 - 25, height/2 - 210 - 25, [120, 80, 50], [120, 80, 70], [120, 80, 75 + sin(frameCount/20)*3], [0, 0, 100], "", 12, 25, 12, 25, 5, 5, 5, 5, "pressTopleftButton")
+        drawButton(width/2 - 25, height/2 - 210 - 25, [120, 80, 50], [120, 80, 70], [120, 80, 75 + sin(frameCount/20)*3], [0, 0, 100], "", 12, 25, 12, 25, 5, 5, 5, 5, "pressTopButton")
+        drawButton(width/2 + 210 - 25, height/2 - 210 - 25, [120, 80, 50], [120, 80, 70], [120, 80, 75 + sin(frameCount/20)*3], [0, 0, 100], "", 12, 25, 12, 25, 5, 5, 5, 5, "pressToprightButton")
+        drawButton(width/2 + 210 - 25, height/2 - 25, [120, 80, 50], [120, 80, 70], [120, 80, 75 + sin(frameCount/20)*3], [0, 0, 100], "", 12, 25, 12, 25, 5, 5, 5, 5, "pressRightButton")
+        drawButton(width/2 + 210 - 25, height/2 + 210 - 25, [120, 80, 50], [120, 80, 70], [120, 80, 75 + sin(frameCount/20)*3], [0, 0, 100], "", 12, 25, 12, 25, 5, 5, 5, 5, "pressBottomrightButton")
+        drawButton(width/2 - 25, height/2 + 210 - 25, [120, 80, 50], [120, 80, 70], [120, 80, 75 + sin(frameCount/20)*3], [0, 0, 100], "", 12, 25, 12, 25, 5, 5, 5, 5, "pressBottomButton")
+        drawButton(width/2 - 210 - 25, height/2 + 210 - 25, [120, 80, 50], [120, 80, 70], [120, 80, 75 + sin(frameCount/20)*3], [0, 0, 100], "", 12, 25, 12, 25, 5, 5, 5, 5, "pressBottomleftButton")
+    }
+
+
+    textSize(40)
+    if (won) {
+        fill(120, 100, 100)
+        noStroke()
+        textAlign(CENTER, CENTER)
+        text("PASS", width/2, height/2-75)
+    } else if (failed) {
+        fill(350, 60, 100)
+        noStroke()
+        textAlign(CENTER, CENTER)
+        text("FAILED", width/2, height/2-75)
+    } else {
+        textSize(20)
+        fill(0, 0, 100)
+        noStroke()
+        textAlign(CENTER, CENTER)
+        text("Click the button in the cardinal\nor intercardinal you should" +
+            " go to.", width / 2, height / 2 - 75)
+    }
 
     mousePressedLastFrame = mouseIsPressed
 
@@ -130,6 +199,62 @@ function draw() {
     //
     // if (frameCount > 3000)
     //     noLoop()
+}
+
+function pressLeftButton() {
+    imageRevealed = millis()
+    pressedButton = 0
+    if (pressedButton === configuration) won = true
+    else failed = true
+}
+
+function pressTopleftButton() {
+    imageRevealed = millis()
+    pressedButton = 1
+    if (pressedButton === configuration) won = true
+    else failed = true
+}
+
+function pressTopButton() {
+    imageRevealed = millis()
+    pressedButton = 2
+    if (pressedButton === configuration) won = true
+    else failed = true
+}
+
+function pressToprightButton() {
+    imageRevealed = millis()
+    pressedButton = 3
+    if (pressedButton === configuration) won = true
+    else failed = true
+}
+
+function pressRightButton() {
+    imageRevealed = millis()
+    pressedButton = 4
+    if (pressedButton === configuration) won = true
+    else failed = true
+}
+
+function pressBottomrightButton() {
+    imageRevealed = millis()
+    pressedButton = 5
+    if (pressedButton === configuration) won = true
+    else failed = true
+}
+
+function pressBottomButton() {
+    imageRevealed = millis()
+    pressedButton = 6
+    if (pressedButton === configuration) won = true
+    else failed = true
+}
+
+function pressBottomleftButton() {
+    imageRevealed = millis()
+    pressedButton = 7
+    if (pressedButton === configuration) won = true
+    else failed = true
 }
 
 function setupMechanic() {
@@ -153,11 +278,15 @@ function setupMechanic() {
     leftDebuff = arrowPermutation[0]
     rightDebuff = arrowPermutation[1]
     configuration = arrowPermutation[2]
+    won = false
+    failed = false
     leftDebuffFirst = random([false, true])
 }
 
 function showDiagram() {
     if (!imageRevealed) imageRevealed = millis()
+    pressedButton = 8
+    failed = true
 }
 
 
