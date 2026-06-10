@@ -97,8 +97,8 @@ function draw() {
 
 
     textSize(20)
-    drawButton(width/2-textWidth("Reset")/2-30, height/2-textAscent()/2-textDescent()/2-5-100, [0, 0, 25], [0, 0, 50], [0, 0, 50+abs(sin(frameCount/20))*10], [0, 0, 100], "Reset", 5, 30, 5, 30, 5, 5, 5, 5, "setupMechanic")
-    drawButton(width/2-textWidth("Show diagram")/2-5, height/2-textAscent()/2-textDescent()/2-5+100, [0, 0, 25], [0, 0, 50], [0, 0, 50+abs(sin(frameCount/20))*10], [0, 0, 100], "Show diagram", 5, 5, 5, 5, 5, 5, 5, 5, "showDiagram")
+    drawButton(width/2-textWidth("Reset")/2-30, height/2-textAscent()/2-textDescent()/2-5-100, [120, 50, 25], [120, 50, 50], [120, 50, 60+sin(frameCount/20)*3], [0, 0, 100], "Reset", 5, 30, 5, 30, 5, 5, 5, 5, "setupMechanic")
+    drawButton(width/2-textWidth("Show diagram")/2-5, height/2-textAscent()/2-textDescent()/2-5+100, [160, 50, 25], [160, 50, 50], [160, 50, 60+sin(frameCount/20)*3], [0, 0, 100], "Show diagram", 5, 5, 5, 5, 5, 5, 5, 5, "showDiagram")
 
     mousePressedLastFrame = mouseIsPressed
 
